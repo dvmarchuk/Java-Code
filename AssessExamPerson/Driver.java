@@ -28,19 +28,19 @@ public class Driver {
 	}
 	
 	
-	private static void writeStudents(String students, TransferStudent[] students){
+	private static void writeStudents(String fileName, TransferStudent[] students){
 		PrintWriter writer;
 
 		try{
-			writer = new PrintWriter("students.txt", students);
-		}catch (FileNotFoundException | UnsupportedEncodingException e){
+			writer = new PrintWriter(fileName);
+		}catch (FileNotFoundException e){
 			e.printStackTrace();
 			return;
 		}
 
 		for(int i = 0; i< students.length; i++){
-			writeStudents ws = students[i];
-			writer.println(ws.getFirstName() + " " + ws.getLastName() + " " + ws.getMajor + " " + ws.getNumTransferCredits);
+			TransferStudent ws = students[i];
+			writer.println(ws.getFirstName() + " " + ws.getLastName() + " " + ws.getMajor() + " " + ws.getNumTransferCredits());
 
 		}
 		writer.close();
