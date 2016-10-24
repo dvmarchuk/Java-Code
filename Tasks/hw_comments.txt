@@ -1,0 +1,39 @@
+HW2 (Assessment Exam)
+
+jhorton - does not compile. 8 errors.  
+	- Declares write method inside main.  Should be declared outside.
+	- Creates array of Transfer students and calls write method inside write method.  
+	These statements should be inside main.
+	- Other classes look fine.
+	40/50	
+
+zquires - 50/50
+jlatz - 50/50 
+wtrumbo - 50/50 
+mcardillo - 50/50 
+
+acampbell - no submission
+cjordan - no submission
+
+HW3  (Matrix)
+
+acampbell - One class submitted: 2D Generic Array Creation class.  Should have 3 files.  Please follow the specs.  
+
+jpadilla - Matrix is not generic.
+	- Driver has little content, only a loop that prints contents of the 
+	initialized array.
+	- 20/30
+
+lrizzo - Matrix class is mostly good.
+	- Can not run your driver - runtime error. Matrix is a generic class yet you don't create it in the driver like its generic. 
+
+kwilliams - Matrix class is not generic - you use an array of integers.
+	- Many methods in class do not work.
+
+wtrumbo - no submission
+cjordan - no submission
+
+HW4 (slides)
+
+cjordan - no submission
+
