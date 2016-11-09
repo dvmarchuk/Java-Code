@@ -1,4 +1,14 @@
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,6 +19,7 @@ import java.util.Map;
 public class HuffmanEncoder {
 
 	private static final Boolean DEBUG = true;
+	private static final int EOT_SYM = 3;
 	
 	public static void 
 	encode(String inFileName, String outFileName, String codeFile) throws IOException 
@@ -33,7 +44,31 @@ public class HuffmanEncoder {
 	private static Map<Integer, Integer> 
 	createSymbolTable(String file) throws IOException
 	{
-		return null;
+		Map<Integer, Integer> map = new HashMap<Integer,Integer>();
+		BufferedReader is = new BufferedReader(new FileReader(file));
+		int symbol;
+		int frequency;
+
+		while ((symbol = is.read()) != -1) {
+			if (map.containsKey(symbol)) {
+				frequency = map.get(symbol);
+				map.put(symbol, ++frequency);
+			}
+			else {
+				map.put(symbol, 1);
+			}
+		}
+		
+		// Add end-of-text symbol to table
+		map.put(EOT_SYM, 1);
+		
+		if (DEBUG) {
+			System.out.println("Symbol Table: ");
+			System.out.println(map.toString());
+		}
+
+		is.close();
+		return map;
 	}
 	/*************************** createNodeList() ****** **********************
 	 * Create a LinkedList of BinaryNodes where each Node contains 
@@ -46,7 +81,30 @@ public class HuffmanEncoder {
 	private static HuffmanLinkedList 
 	createNodeList(Map<Integer, Integer> map) 
 	{
-		return null;
+		HuffmanLinkedList nodeList = new HuffmanLinkedList ();
+
+		Set<Entry<Integer, Integer>> set = map.entrySet();
+		Iterator<Entry<Integer, Integer>> setIterator = set.iterator();
+
+		Entry<Integer, Integer> e = null;
+		HuffmanData data = null;
+
+		while(setIterator.hasNext()) {
+			e = setIterator.next();
+			data = new HuffmanData(e.getKey(), e.getValue());
+			nodeList.add(data);
+		}
+
+		if (DEBUG) {
+			System.out.println("Huffman Sorted Linked List: ");
+			Iterator<BinaryNode<HuffmanData>> it = nodeList.iterator();
+			while (it.hasNext()) {
+				System.out.print(it.next().getData().toString() + " ");
+			}
+			System.out.println();
+		}
+
+		return nodeList;
 	}
 
 	/************************* createHuffmanTree() *****************************
