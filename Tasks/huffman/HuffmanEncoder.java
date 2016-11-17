@@ -19,7 +19,7 @@ import java.util.Map;
 public class HuffmanEncoder {
 
 	private static final Boolean DEBUG = true;
-	private static final int EOT_SYM = 3;
+	private static final int ETX_SYM = 3;
 	
 	public static void 
 	encode(String inFileName, String outFileName, String codeFile) throws IOException 
@@ -60,7 +60,7 @@ public class HuffmanEncoder {
 		}
 		
 		// Add end-of-text symbol to table
-		map.put(EOT_SYM, 1);
+		map.put(ETX_SYM, 1);
 		
 		if (DEBUG) {
 			System.out.println("Symbol Table: ");
@@ -119,8 +119,45 @@ public class HuffmanEncoder {
 	private static BinaryNode<HuffmanData> 
 	createHuffmanTree(HuffmanLinkedList nodeList) 
 	{
-		return null;
+		BinaryNode<HuffmanData> node1 = null;
+		BinaryNode<HuffmanData> node2 = null;
+		BinaryNode<HuffmanData> newNode = null;
+		int newFrequency = 0;
+
+		while(nodeList.size() > 1) {
+			node1 = nodeList.pop();
+			node2 = nodeList.pop();
+			newFrequency = node1.getData().getFrequency() + node2.getData().getFrequency();
+			newNode = new BinaryNode<HuffmanData>(new HuffmanData(0, newFrequency));
+			newNode.setLeftChild(node1);
+			newNode.setRightChild(node2);
+			nodeList.add(newNode);
+		}
+		
+		if (DEBUG) {
+			depthFirstSearch(newNode);
+		}
+
+		return newNode; 
 	}
+
+	private static void depthFirstSearch(BinaryNode<HuffmanData> node) 
+	{
+		if (node.getLeftChild() == null && node.getRightChild() == null)
+			System.out.printf("%d ^ ", node.getData().getSymbol());
+		else {
+			if (node.getLeftChild() != null) {
+				System.out.printf("< ");
+				depthFirstSearch(node.getLeftChild());
+			}
+			if (node.getRightChild() != null) {
+				System.out.printf("> ");
+				depthFirstSearch(node.getRightChild());
+			}
+			System.out.printf("^ ");
+		}
+	}
+
 
 	/************************ createHuffmanCodeMap() ****************************
 	 * Traverse the Huffman Tree using a Depth First Search while maintaining a
