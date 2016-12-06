@@ -172,7 +172,25 @@ public class HuffmanEncoder {
 	private static Map<Integer, String>
 	createHuffmanCodeMap(BinaryNode<HuffmanData> rootNode)
 	{
-		return null;
+		Map<Integer, String> huffmanCodeMap = new HashMap<Integer, String>();
+		setMapWithDepthFirstSearch(huffmanCodeMap, rootNode, "");
+		return huffmanCodeMap;
+	}
+	
+	private static void
+	setMapWithDepthFirstSearch(Map<Integer, String> huffmanCodeMap, BinaryNode<HuffmanData> curNode, String code) 
+	{
+		if (curNode == null)
+			return;
+
+		if (curNode.isLeaf()) {
+			huffmanCodeMap.put(curNode.getData().getSymbol(), code);
+		}
+		else {
+			setMapWithDepthFirstSearch(huffmanCodeMap, curNode.getLeftChild(), code+"0");
+			setMapWithDepthFirstSearch(huffmanCodeMap, curNode.getRightChild(), code+"1");
+		}
+		return;
 	}
 
 	/****************** writeSerializedHuffmanCodeToFile() **********************
@@ -183,7 +201,10 @@ public class HuffmanEncoder {
 	writeSerializedHuffmanCodeToFile(String fileName, Map<Integer, String> huffmanCodeMap) 
 
 	{
-		return;
+		FileOutputStream fos = new FileOutputStream(fileName);
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(huffmanCodeMap);
+		oos.close();
 	}
 
 	/***************************** encodeFile() *********************************
