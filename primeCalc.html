@@ -1,10 +1,10 @@
 <!doctype html>
 <html>
 	<head> 
-		<title>Prime Number Calculator</title>
-		<script language="JavaScript">
+	<title>Prime Number Calculator</title>
+	<script language="JavaScript">
 		
-		function PrimeNumberCalc(){
+	function PrimeNumberCalc(){
 
                 var num = parseInt(document.numbers.textbox.value);
                 
@@ -14,7 +14,7 @@
                 
                 else{
                     if(prime(num)==true){
-    					document.getElementById('output').innerHTML = num + " <b>is</b> a prime number!";
+    			document.getElementById('output').innerHTML = num + " <b>is</b> a prime number!";
                     }
                     else{
                         document.getElementById('output').innerHTML = num + " <b>is not</b> a prime number!";
@@ -22,8 +22,7 @@
                 }
         }
 
-        function prime(num)
-        {
+        function prime(num){
             var flag = true;
 
                 for(var i=2; i<num; i++){
@@ -34,7 +33,7 @@
                 return flag;    
             }
             
-		</script>
+	</script>
 	</head>
 	<body> 
 		<form name="numbers">
