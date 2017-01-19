@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+	<head> 
+		<title>Prime Number Calculator</title>
+		<script language="JavaScript">
+		
+		function PrimeNumberCalc(){
+
+                var num = parseInt(document.numbers.textbox.value);
+                
+                if (isNaN(num)==true || (num < 1)){
+                    document.getElementById('output').innerHTML = "Enter a valid number";
+                }
+                
+                else{
+                    if(prime(num)==true){
+    					document.getElementById('output').innerHTML = num + " <b>is</b> a prime number!";
+                    }
+                    else{
+                        document.getElementById('output').innerHTML = num + " <b>is not</b> a prime number!";
+                    }
+                }
+        }
+
+        function prime(num)
+        {
+            var flag = true;
+
+                for(var i=2; i<num; i++){
+                    if((num%i)==0){
+                        flag = false;
+                    }
+                }
+                return flag;    
+            }
+            
+		</script>
+	</head>
+	<body> 
+		<form name="numbers">
+			<h1 align="center" >Prime Number Calculator</h1>
+			<hr/>
+			<p align="center">Enter your number into the box and click the button to see if your number is prime. </p>
+			<hr/>
+			<input name="textbox" type="text" />
+			<input type="button" value="Prime?" onclick="PrimeNumberCalc()" />
+			<hr/>
+		</form>	
+	<div id="output"></div>
+	</body>
+</html>	
